@@ -22,4 +22,19 @@ Código: [`number-of-islands/Solution.cs`](number-of-islands/Solution.cs)
 **Complejidad:** con `m` filas y `n` columnas, tiempo `Θ(m·n)` (cada celda se visita una vez) y espacio `O(m·n)` en el peor caso por la cola; la grilla se modifica in-place, así que no hay matriz `visited`.
  
 ![Accepted — Number of Islands](evidencias/number-of-islands-accepted.png)
+
+---
+
+## 1143. Longest Common Subsequence
  
+Enlace: https://leetcode.com/problems/longest-common-subsequence/  
+Código: [`longest-common-subsequence/Solution.cs`](longest-common-subsequence/Solution.cs)
+ 
+**Familia:** programación dinámica  
+**Estado:** `dp[i][j]` = longitud de la LCS de `text1[0..i)` y `text2[0..j)` (los primeros `i` caracteres de `text1` y los primeros `j` de `text2`).  
+**Base:** `dp[0][j] = dp[i][0] = 0` (un prefijo vacío no comparte nada con nadie).  
+**Recurrencia:** si `text1[i-1] == text2[j-1]`, entonces `dp[i][j] = 1 + dp[i-1][j-1]`; si no, `dp[i][j] = max(dp[i-1][j], dp[i][j-1])`. La respuesta es `dp[n][m]`.  
+**Idea:** una subsecuencia permite borrar letras pero no reordenar, así que se mira el último carácter de cada prefijo: si coinciden, extienden la LCS de los prefijos menores; si no, uno de los dos no participa y se toma la mejor de las dos opciones. Cada celda depende solo de arriba, izquierda y diagonal, por eso se llena por filas. Un greedy de «tomar la primera coincidencia» falla, y la recursión sin memo es exponencial.  
+**Complejidad:** con `n = text1.length` y `m = text2.length`, tiempo `Θ(n·m)` y espacio `Θ(n·m)` por la tabla (bajaría a `Θ(min(n, m))` guardando solo dos filas).
+ 
+![Accepted — Longest Common Subsequence](evidencias/longest-common-subsequence-accepted.png)
