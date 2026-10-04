@@ -38,3 +38,17 @@ Código: [`longest-common-subsequence/Solution.cs`](longest-common-subsequence/S
 **Complejidad:** con `n = text1.length` y `m = text2.length`, tiempo `Θ(n·m)` y espacio `Θ(n·m)` por la tabla (bajaría a `Θ(min(n, m))` guardando solo dos filas).
  
 ![Accepted — Longest Common Subsequence](evidencias/longest-common-subsequence-accepted.png)
+
+---
+
+## 435. Non-overlapping Intervals
+ 
+Enlace: https://leetcode.com/problems/non-overlapping-intervals/  
+Código: [`non-overlapping-intervals/Solution.cs`](non-overlapping-intervals/Solution.cs)
+ 
+**Familia:** greedy  
+**Criterio greedy:** se ordenan los intervalos por extremo derecho (`end`) y, entre los que aún caben, se elige siempre el que **termina antes**; el siguiente aceptado es el primero cuyo `start` es mayor o igual al `end` del último aceptado. Lo que no se acepta es lo que se «borra».  
+**Idea:** es la selección de actividades de la guía contada al revés: maximizar cuántos intervalos caben sin solape equivale a minimizar cuántos se tiran, así que la respuesta es `n − aceptados`. Terminar pronto deja el mayor espacio libre para los siguientes; por intercambio, cualquier solución óptima puede sustituir su primer intervalo por el que termina antes sin crear solapes. Dos intervalos se solapan si uno empieza antes de que el otro termine; si `start == end` del último, no se solapan.  
+**Complejidad:** con `n` intervalos, tiempo `O(n log n)` (domina el sort; la pasada es `O(n)`) y espacio `O(1)` extra, porque el sort es in-place (más `O(log n)` de pila del sort).
+ 
+![Accepted — Non-overlapping Intervals](evidencias/non-overlapping-intervals-accepted.png)
