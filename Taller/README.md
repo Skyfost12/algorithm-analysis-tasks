@@ -52,3 +52,20 @@ Código: [`non-overlapping-intervals/Solution.cs`](non-overlapping-intervals/Sol
 **Complejidad:** con `n` intervalos, tiempo `O(n log n)` (domina el sort; la pasada es `O(n)`) y espacio `O(1)` extra, porque el sort es in-place (más `O(log n)` de pila del sort).
  
 ![Accepted — Non-overlapping Intervals](evidencias/non-overlapping-intervals-accepted.png)
+
+----
+
+## 39. Combination Sum
+ 
+Enlace: https://leetcode.com/problems/combination-sum/  
+Código: [`combination-sum/Solution.cs`](combination-sum/Solution.cs)
+ 
+**Familia:** backtracking  
+**Estado de la búsqueda:** `(inicio, resto, actual)`: índice desde el que se puede elegir, lo que falta para llegar a `target` y la combinación que se está armando.  
+**Qué se elige:** `candidates[i]`, y se baja con el mismo `i` para poder reutilizarlo; no se vuelve a índices menores, así `[2,3,2]` no aparece si ya salió `[2,2,3]`.  
+**Qué se deshace:** al regresar de la recursión se quita el último elegido (`actual.RemoveAt`) para probar el siguiente candidato. Si `resto == 0` se copia la combinación a la respuesta.  
+**Poda:** con `candidates` ordenado, si `candidates[i] > resto`, ese y todos los siguientes tampoco caben y se corta el bucle con `break`.  
+**Idea:** hay que enumerar las combinaciones, no contarlas ni buscar el mínimo. Greedy no se retracta y una tabla DP que solo cuenta no entrega las listas, por eso se elige, se baja y se deshace.  
+**Complejidad:** con `n = candidates.length`, `t = target` y `m = min(candidates)`, la profundidad máxima es `t/m` y cada nivel ramifica hasta `n` veces, así que el tiempo es `O(n^(t/m))` como cota superior (más `O(t/m)` por cada combinación copiada). El espacio es `O(t/m)` de pila y de la lista `actual`, más la salida.
+ 
+![Accepted — Combination Sum](evidencias/combination-sum-accepted.png)
